@@ -26,10 +26,20 @@ const Form: React.FC = () => {
   const HandleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
-
   const HandleShow = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
+  
+    // Basic validation for name, lastname, and email fields
+    if (!name.trim() || !lastname.trim() || !email.trim()) {
+      alert("Please fill in all fields.");
+      return;
+    }
+  
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+  
     if (updateIndex === -1) {
       const newList = {
         name: name,
@@ -56,7 +66,6 @@ const Form: React.FC = () => {
       alert("Data updated successfully");
     }
   };
-
   const handleDelete = (index: number) => {
     const newData = [...allData];
     newData.splice(index, 1);
